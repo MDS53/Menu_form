@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu</title>
+    <style>
+        body {
+            background-color: orange; /* Set background color of the entire page to orange */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .menu-container {
+            background-color: white; /* Set background color of the menu container to white */
+            border: 2px solid black; /* Add a border with orange color */
+            border-radius: 38px; /* Add border radius to create a rectangular shape */
+            padding: 40px; /* Add padding for better spacing */
+            width: 1000px; /* Set width to make it rectangular */
+        }
+
+        h1.sub-heading {
+            text-align: center; /* Center-align the heading */
+            color: black; /* Set the color to orange */
+        }
+
+
+        h1 {
+            text-align: center; /* Center-align the heading */
+            color: orange; /* Set the color to orange */
+            font-family: "Pacifico"
+        }
+
+        .menu-item img {
+            width: 150px; /* Set image width */
+            height: 150px; /* Set image height */
+            border-radius: 10px; /* Add border radius to images */
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .item-details {
+            margin-left: 20px;
+        }
+
+        .item-name {
+            font-weight: bold;
+        }
+
+        .item-ingredients {
+            margin-top: 5px;
+            color: gray;
+        }
+
+        .item-price {
+            margin-top: 5px;
+        }
+
+        .quantity-label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container"> <!-- Menu heading -->
+        <h1>Quote of the day !!</h1>
+        <h1>{{quotes}}</h1>
+        <br>
+        <br>
+        <form action="/bill" method="post">
+            <h1 class="sub-heading">First Course</h1>
+            <br>
+            {% for item, details in menu1.items() %}
+                <div class="menu-item">
+                    <img src="{{ details['image'] }}" alt="{{ item }}"> <!-- Add image for each item -->
+                    <div class="item-details">
+                        <div class="item-name">{{ item }}</div>
+                        <div class="item-ingredients">{{ details['ingredients'] }}</div> <!-- Ingredients section -->
+                        <div class="item-price">$ {{ details['price'] }}</div>
+                        <label class="quantity-label" for="{{ item }}">Quantity:</label>
+                        <input type="number" id="{{ item }}" name="starters_quantity[{{ item }}]" value="0" min="0"><br>
+                    </div>
+                </div>
+            {% endfor %}
+            <br>
+            <h1 class="sub-heading">Main Course</h1>
+            <br>
+            {% for item, details in menu2.items() %}
+                <div class="menu-item">
+                    <img src="{{ details['image'] }}" alt="{{ item }}"> <!-- Add image for each item -->
+                    <div class="item-details">
+                        <div class="item-name">{{ item }}</div>
+                        <div class="item-ingredients">{{ details['ingredients'] }}</div> <!-- Ingredients section -->
+                        <div class="item-price">$ {{ details['price'] }}</div>
+                        <label class="quantity-label" for="{{ item }}">Quantity:</label>
+                        <input type="number" id="{{ item }}" name="main_course_quantity[{{ item }}]" value="0" min="0"><br>
+                    </div>
+                </div>
+            {% endfor %}
+            <br>
+            <h1 class="sub-heading">Drinks</h1>
+            <br>
+            {% for item, details in menu3.items() %}
+                <div class="menu-item">
+                    <img src="{{ details['image'] }}" alt="{{ item }}"> <!-- Add image for each item -->
+                    <div class="item-details">
+                        <div class="item-name">{{ item }}</div>
+                        <div class="item-ingredients">{{ details['ingredients'] }}</div> <!-- Ingredients section -->
+                        <div class="item-price">$ {{ details['price'] }}</div>
+                        <label class="quantity-label" for="{{ item }}">Quantity:</label>
+                        <input type="number" id="{{ item }}" name="drinks_quantity[{{ item }}]" value="0" min="0"><br>
+                    </div>
+                </div>
+            {% endfor %}
+            <br>
+            <input type="submit" value="Place Order">
+            <br>
+        </form>
+    </div>
+</body>
+</html>
